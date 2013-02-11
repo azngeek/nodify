@@ -4,7 +4,7 @@
  * @param req
  * @param res
  */
-exports.login = function (req, res) {
+exports.loginOld = function (req, res) {
 
     //if (err) return next(err);
     //if (!doc) return res.send('<p>User not found. Go back and try again</p>');
@@ -25,6 +25,11 @@ exports.login = function (req, res) {
     res.redirect('/');
 };
 
+exports.login = function (req, res) {
+    res.render('authentication/login', { title:'Login' });
+
+};
+
 /**
  * Log out the user and redirect him to the route '/' in app.js.
  * So we don't need to render the logout page.
@@ -35,6 +40,8 @@ exports.login = function (req, res) {
 exports.logout = function (req, res) {
     req.session.loggedIn = null;
     req.session.user = null;
+    delete req.session.loggedIn;
+    delete req.session.user;
     res.redirect('/');
 };
 
