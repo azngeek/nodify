@@ -4,10 +4,9 @@
 
 exports.list = function (req, res) {
 
-    var authenticated = false;
-    if (req.session.user) {
+    console.log(req.user);
+    if (req.user) {
         authenticated = true;
     }
-    console.log(req.session.user);
-    res.render('index', { title:'User', user:req.session.user, authenticated: authenticated});
+    res.render('index', { title:'User', user:req.user, authenticated: authenticated});
 };

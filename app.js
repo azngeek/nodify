@@ -82,8 +82,7 @@ app.configure('development', function(){
  * Define the routes here
  */
 app.get('/', routes.index);
-//app.get('/users', authenticate, user.list);
-
+app.get('/users', authenticate.ensureAuthenticated, user.list);
 
 
 /**
