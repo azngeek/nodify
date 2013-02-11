@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  h1= title
+  p Welcome to Userpage
+  div#main
+    h2 Was geht
+    Hier kommt was. Das ist die tolle Benutzerseite. Jeder freut sich
+    p
+      | jetzt muss was tolles rein
+
+  script(type='text/x-handlebars-template', id='entry-template')
+    div.entry
+        h1 {{title}}
+        div.body {{body}}
+
+
+  script(type='text/javascript')
+    var source   = $("#entry-template").html();
+    var template = Handlebars.compile(source);
+
+    var context = {title: "My New Post", body: "This is my first post!"}
+    $('#main').append(template(context));
+

@@ -27,7 +27,6 @@ exports.loginOld = function (req, res) {
 
 exports.login = function (req, res) {
     res.render('authentication/login', { title:'Login' });
-
 };
 
 /**
@@ -38,10 +37,7 @@ exports.login = function (req, res) {
  * @param res
  */
 exports.logout = function (req, res) {
-    req.session.loggedIn = null;
-    req.session.user = null;
-    delete req.session.loggedIn;
-    delete req.session.user;
+    req.logout();
     res.redirect('/');
 };
 

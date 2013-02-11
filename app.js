@@ -82,15 +82,20 @@ app.configure('development', function(){
  * Define the routes here
  */
 app.get('/', routes.index);
+
+/**
+ * user profile
+ */
 app.get('/users', authenticate.ensureAuthenticated, user.list);
+app.get('/user/profile/:name?', user.profile);
 
 
 /**
  * Authentification routes
  */
-//app.get('/signup', authentication.signup);
+app.get('/signup', authentication.signup);
 app.get('/login', authenticate.ensureAuthenticatedLogin, authentication.login);
-//app.get('/logout', authentication.logout)
+app.get('/logout', authentication.logout)
 
 app.post('/login', passport.authenticate('local', { successRedirect: '/',
     failureRedirect: '/login' }));
