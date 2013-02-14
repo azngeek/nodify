@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+    <script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
+</head>
+<body>
+
+    <p>Test</p>
+
+
+    <script type="text/javascript">
+        Person = Backbone.Model.extend({
+            urlRoot: 'http://www.azngeek.de:3000/test',
+            defaults: {
+                name: 'Bosco',
+                age: 30
+            },
+            initialize: function(){
+                alert("Welcome to this world");
+                this.on("change:name", function(model){
+                    var name = model.get("name"); // 'Stewie Griffin'
+                    alert("Changed my name to " + name );
+                });
+            }
+        });
+
+        var person = new Person({id: 1});
+        person.fetch({
+            success: function (user) {
+                alert(user.toJSON());
+            }
+        });
+    </script>
+</body>
+</html>

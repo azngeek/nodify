@@ -10,6 +10,7 @@ var express = require('express')
   , path = require('path')
   , authenticate = require('./library/atisto/authenticate.js')
   , authentication = require('./routes/authentication/package.js')
+  , backbone = require('./routes/backbone/package.js')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
 ;
@@ -99,6 +100,21 @@ app.get('/logout', authentication.logout)
 
 app.post('/login', passport.authenticate('local', { successRedirect: '/',
     failureRedirect: '/login' }));
+
+/**
+ * testroutes
+ */
+app.get('/backbone', backbone.index);
+app.get('/test/:id', function(req, res) {
+    var obj = {
+        name : 'test'
+    };
+    res.writeHead(200, {
+        'Content-Type': 'application/json'
+    });
+    res.write(JSON.stringify(obj));
+    res.end();
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
