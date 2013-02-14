@@ -104,7 +104,7 @@ app.post('/login', passport.authenticate('local', { successRedirect: '/',
 /**
  * testroutes
  */
-app.get('/backbone', backbone.index);
+app.get(/^\/backbone.*/, authenticate.ensureAuthenticated, backbone.index);
 app.get('/test/:id', function(req, res) {
     var obj = {
         name : 'test'
