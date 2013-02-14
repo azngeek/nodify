@@ -2,22 +2,26 @@
 // https://github.com/grifotv/grifotv-portfolio/tree/master/bin <- Killer portfolio
 // http://www.azngeek.de:3000/backbone#/postasdfa/asfda22
 
-var AppRouter = Backbone.Router.extend(
-    {
-        routes: {
-            "user/:id": "getUser",
-            "*actions": "defaultRoute" // matches http://example.com/#anything-here
-        }
+// Filename: main.js
+
+// Require.js allows us to configure shortcut alias
+// There usage will become more apparent further along in the tutorial.
+require.config({
+    paths:{
+        jquery:'lib/jquery-1.9.1.min',
+        underscore:'lib/underscore-min',
+        backbone:'lib/backbone-min',
+        text:'lib/text'
     }
-);
-app_router = new AppRouter;
 
-app_router.on('route:defaultRoute', function(actions) {
-   // alert(actions);
 });
 
-app_router.on('route:getUser', function(id) {
-    console.log('id was: ' + id);
+require([
+
+    // Load our app module and pass it to our definition function
+    'app'
+], function (App) {
+    // The "app" dependency is passed in as "App"
+    App.initialize();
 });
 
-Backbone.history.start();

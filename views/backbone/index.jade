@@ -1,13 +1,10 @@
 extends ../layout
 
 block content
-  script(src='/javascripts/main.js')
-
   h1= title
   p Welcome to Userpage
   div#main
-    h2 Was geht
-    Hier kommt was. Das ist die tolle Benutzerseite. Jeder freut sich
+    h2 Test mit /views/backbone/index.jade
     p
       | jetzt muss was tolles rein
 
@@ -19,36 +16,7 @@ block content
         p#website test
         p#feedback test
 
-  script(type='text/template', id='search_template')
-    label search
-    input#search_input(type='text')
-    input#search_button(type='button', value='Search')
+  div#profile
 
-  div#search_container
 
-  script(type='text/javascript')
-    SearchView = Backbone.View.extend({
-          initialize: function(){
-              this.render();
-          },
-          render: function(){
-              // Compile the template using underscore
-              var template = _.template( $("#search_template").html(), {} );
-              // Load the compiled HTML into the Backbone "el"
-              this.$el.html( template );
-          },
-          events: {
-                      "click input[id=search_button]": "doSearch",
-                      "keydown input[id=search_input]": "logSearch",
-                  },
-                  doSearch: function( event ){
-                      // Button clicked, you can access the element that was clicked with event.currentTarget
-                      alert( "Search for " + $("#search_input").val() );
-                  },logSearch: function( event ){
-                      // Button clicked, you can access the element that was clicked with event.currentTarget
-                      console.log( "Search for " + $("#search_input").val() );
-                  }
-      });
-
-      var search_view = new SearchView({ el: $("#search_container") });
 

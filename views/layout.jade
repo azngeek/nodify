@@ -2,8 +2,9 @@ doctype 5
 html
   head
     title= title
-    script(src='http://code.jquery.com/jquery-1.9.1.min.js')
-    script(src='/javascripts/handlebars.js')
+    script(data-main='javascripts/main', src='javascripts/lib/require.js')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    block menu
     block content
+    block footer

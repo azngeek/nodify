@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  h1 Ember Tutorial
+  p Welcome to Userpage
+  div#main
+    h2 H2
+    p
+      | jetzt muss was tolles rein
+
+
+  script(type='text/x-handlebars-template', id='entry-template')
+    div.ember
+      <li> Hello, {{fullName}}
+      div {{body}}
+
+
+  script(type='text/javascript')
+    var source   = $("#entry-template").html();
+    var template = Handlebars.compile(source);
+
+    var context = {title: "My New Post", body: "This is my first post!"}
+    $('#main').append(template(context));
+
+
+    Person = Backbone.Model.extend({
+            urlRoot: '/user',
+     defaults: {
+                name: 'Fetus',
+                age: 0
+            },
+        initialize: function(){
+            alert("Welcome to this world");
+            this.on("change:name", function(model){
+                var name = model.get("name"); // 'Stewie Griffin'
+                alert("Changed my name to " + name );
+            });
+        }
+    });
+
+    var person = new Person({id: 1});
