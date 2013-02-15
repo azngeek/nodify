@@ -24,12 +24,14 @@ exports.fetchAll = function (req, res) {
  * @param res
  */
 exports.fetch = function (req, res) {
-    console.log('fetch single user with id: IMPLEMENT ID!');
+    console.log('fetch single user with id: ' + req.params.id);
     db.collection('users', function(err, collection) {
         // req.params.id
-        var obj_id = BSON.ObjectID.createFromHexString("511e4463b95df4564f000001");
+        var obj_id = BSON.ObjectID.createFromHexString(req.params.id);
+        console.log('obj_id : ' + obj_id);
         collection.findOne({_id: obj_id},function(err, doc) {
             if (doc){
+                res.send(doc);
                 console.log(doc);
             } else {
                 console.log('no data for this company');

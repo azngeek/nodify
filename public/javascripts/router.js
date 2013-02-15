@@ -21,7 +21,7 @@ define([
             // Note the variable in the route definition being passed in here
             console.log( "Get post number " + id );
             var profileUser = new ProfileUser();
-            profileUser.render();
+            profileUser.render(id);
         });
         app_router.on('route:users', function (id) {
             // Note the variable in the route definition being passed in here

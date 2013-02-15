@@ -4,17 +4,28 @@ define([
     'underscore',
     'backbone',
     // Pull in the Collection module from above,
+    'models/UserModel',
     'text!templates/profile/user.html'
 
-], function($, _, Backbone, userTemplate){
+], function($, _, Backbone, UserModel, userTemplate){
     var ProfileUser = Backbone.View.extend({
         el: $("#profile"),
+        data: null,
+        render: function(id){
 
-        render: function(){
+            this.model = new UserModel({id: id});
+            result = this.model.fetch({
+                success: function (user) {
+                    console.log('Retreiving data: ');
+                    this.data = user.toJSON();
+                    console.log(user.toJSON());
 
-            var data = {};
-            var template = _.template( userTemplate, {} );
-            $("#profile").html( template );
+                    console.log('Rendering with data: ');
+                    console.log(this.data);
+                    var template = _.template( userTemplate, {user: this.data} );
+                    $("#profile").html( template );
+                }
+            })
         }
     });
     return ProfileUser;
