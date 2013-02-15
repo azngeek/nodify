@@ -93,7 +93,7 @@ app.get('/', routes.index);
 /**
  * user profile
  */
-app.get('/users', authenticate.ensureAuthenticated, user.list);
+app.get('/user', authenticate.ensureAuthenticated, user.list);
 app.get('/user/profile/:name?', user.profile);
 
 
@@ -112,32 +112,11 @@ app.post('/login', passport.authenticate('local', { successRedirect: '/',
  *
  * http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
  */
-app.get('/user', userRoute.index);
-app.get('/user/insert', function (req, res) {
-    var user =  {
-        name: "CHATEAU DE SAINT COSME",
-        year: "2009",
-        grapes: "Grenache / Syrah",
-        country: "France",
-        region: "Southern Rhone",
-        description: "The aromas of fruit and spice...",
-        picture: "saint_cosme.jpg"
-    };
-
-    console.log('Adding user: ');
-    db.collection('users', function(err, collection) {
-        collection.insert(user, {safe:true}, function(err, result) {
-            if (err) {
-                console.log(err);
-                res.send({'error':'An error has occurred'});
-            } else {
-                console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
-            }
-        });
-    });
-});
-app.get('/user/get', userRoute.getUser);
+app.get    ('/dusers', userRoute.fetchAll);        // retreive all users
+app.get    ('/dusers/:id', userRoute.fetch);       // retreive a single user with a specific _id
+app.post   ('/dusers', userRoute.add);             // add a single user
+app.put    ('/dusers/:id', userRoute.update);      // update a single user with a specific _id
+app.delete ('/dusers/:id', userRoute.delete);      // delete a single user with a specific _id
 
 /**
  * testroutes
