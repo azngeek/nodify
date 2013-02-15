@@ -4,11 +4,14 @@
  */
 
 var express = require('express')
+
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
+  , mongodb = require('mongodb')
   , path = require('path')
   , authenticate = require('./library/atisto/authenticate.js')
+  , userRoute = require('./routes/user/package.js')
   , authentication = require('./routes/authentication/package.js')
   , backbone = require('./routes/backbone/package.js')
   , passport = require('passport')
@@ -16,6 +19,9 @@ var express = require('express')
 ;
 
 
+var database = require('./library/atisto/database.js');
+var db = new database({});
+var BSON = mongo.BSONPure;
 
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to
@@ -100,6 +106,38 @@ app.get('/logout', authentication.logout)
 
 app.post('/login', passport.authenticate('local', { successRedirect: '/',
     failureRedirect: '/login' }));
+
+/**
+ * Routes for user profiles
+ *
+ * http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
+ */
+app.get('/user', userRoute.index);
+app.get('/user/insert', function (req, res) {
+    var user =  {
+        name: "CHATEAU DE SAINT COSME",
+        year: "2009",
+        grapes: "Grenache / Syrah",
+        country: "France",
+        region: "Southern Rhone",
+        description: "The aromas of fruit and spice...",
+        picture: "saint_cosme.jpg"
+    };
+
+    console.log('Adding user: ');
+    db.collection('users', function(err, collection) {
+        collection.insert(user, {safe:true}, function(err, result) {
+            if (err) {
+                console.log(err);
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('Success: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
+        });
+    });
+});
+app.get('/user/get', userRoute.getUser);
 
 /**
  * testroutes
