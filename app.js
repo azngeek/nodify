@@ -11,9 +11,10 @@ var express = require('express')
   , mongodb = require('mongodb')
   , path = require('path')
   , authenticate = require('./library/atisto/authenticate.js')
-  , userRoute = require('./routes/user/package.js')
+  , userRoute = require('./routes/rest/user/package.js')
+  , staticRoute = require('./routes/static/controller.js')
   , authentication = require('./routes/authentication/package.js')
-  , backbone = require('./routes/backbone/package.js')
+  , restricted = require('./routes/restricted/package.js')
   , passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
 ;
@@ -119,10 +120,16 @@ app.put    ('/dusers/:id', userRoute.update);      // update a single user with 
 app.delete ('/dusers/:id', userRoute.delete);      // delete a single user with a specific _id
 
 /**
+ * Routes for static pages
+ */
+app.get     ('/about', staticRoute.about);        // static about page
+app.get     ('/faq', staticRoute.faq);            // static faq page
+
+/**
  * testroutes
  */
 //app.get(/^\/backbone.*/, authenticate.ensureAuthenticated, backbone.index);
-app.get(/^\/backbone.*/, backbone.index);
+app.get(/^\/backbone.*/, restricted.index);
 app.get('/test/:id', function(req, res) {
     var obj = {
         name : 'test'
