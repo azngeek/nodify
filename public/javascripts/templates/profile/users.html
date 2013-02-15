@@ -1,7 +1,12 @@
-<h1>User
+<h1>Collection of users</h1>
     <ul>
-        <li>test</li>
-        <li>test</li>
-        <li>test</li>
-        <li>test</li>
+        <% _.each(users, function (user) { %>
+        <% console.log(user)  %>
+        <li>
+            <h5><%- user.name %></h5>
+            <p><%- user.grapes %></p>
+            <p><a href="/backbon/#user/<%- user._id %>">test</a></p>
+
+        </li>
+        <% }); %>
     </ul>

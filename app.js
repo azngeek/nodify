@@ -121,7 +121,8 @@ app.delete ('/dusers/:id', userRoute.delete);      // delete a single user with 
 /**
  * testroutes
  */
-app.get(/^\/backbone.*/, authenticate.ensureAuthenticated, backbone.index);
+//app.get(/^\/backbone.*/, authenticate.ensureAuthenticated, backbone.index);
+app.get(/^\/backbone.*/, backbone.index);
 app.get('/test/:id', function(req, res) {
     var obj = {
         name : 'test'

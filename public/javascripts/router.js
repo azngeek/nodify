@@ -25,7 +25,7 @@ define([
         });
         app_router.on('route:users', function (id) {
             // Note the variable in the route definition being passed in here
-            console.log( "Get post number " + id );
+            console.log( 'router.js: Rendering View: ProfileUsers');
             var profileUsers = new ProfileUsers();
             profileUsers.render();
         });
