@@ -120,10 +120,12 @@ app.put    ('/dusers/:id', userRoute.update);      // update a single user with 
 app.delete ('/dusers/:id', userRoute.delete);      // delete a single user with a specific _id
 
 /**
- * Routes for static pages
+ * Routes for static pages. This will display for example the about-page. All the content delivered should
+ * be rendered by the server. Do not try to make it more complicated by adding complex mvc-routes in the frontend
  */
 app.get     ('/about', staticRoute.about);        // static about page
-app.get     ('/faq', staticRoute.faq);            // static faq page
+app.get     ('/faq',   staticRoute.faq);          // static faq page
+app.get     ('/team',  staticRoute.team);         // static team page
 
 /**
  * testroutes
